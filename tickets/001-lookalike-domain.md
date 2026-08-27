@@ -1,32 +1,31 @@
-# PHISH-001 · Lookalike password reset for Capsule Corp mail
+# PHISH-001 · Lookalike password reset
 
-**Queue:** Capsule Corp IT  
-**Analyst:** cachuchablanco  
+**Analyst:** Oscar Hernandez  
 **Opened:** 2026-08-12 09:14 PT  
 **Closed:** 2026-08-12 09:41 PT  
 **Verdict:** True positive  
 **ATT&CK:** [T1566.002 Spearphishing Link](https://attack.mitre.org/techniques/T1566/002/)
 
-## Lead summary (two sentences)
+## Two sentences for whoever is on lead
 
-Staff got a "reset your Capsule mail password" message from `capsu1e-corp.example`, a one-character lookalike of `capsule-corp.example`. DMARC failed, Reply-To was off-domain, user did not click. Domain and sender are blocked.
+Staff got a "reset your Capsule mail or it locks in 30 minutes" email from `capsu1e-corp.example`. That is a fake Capsule domain (the letter l is a 1). User did not click. I blocked the sender and the host.
 
 ## Reporter
 
 - Name / role: Y. Satoshi, warehouse admin
-- Reported at: 2026-08-12 09:14 PT (forwarded to IT, then pulled headers from the original)
-- User action: did not click, did not type credentials
+- When they reported it: 2026-08-12 09:14 PT
+- What they did: did not click, did not type a password
 
 ## Message
 
 - Subject: `Action required: Capsule Corp mailbox will lock in 30 minutes`
-- Visible From: `Capsule Corp IT <it-help@capsu1e-corp.example>`
+- From: `Capsule Corp IT <it-help@capsu1e-corp.example>`
 - Return-Path: `bounce@mailer-prod.example`
 - Reply-To: `it-help@capsu1e-corp.example`
-- Date (header): 12 Aug 2026 16:02:11 +0000
-- Recipients: `ysatoshi@capsule-corp.example`
+- Date: 12 Aug 2026 16:02:11 +0000
+- To: `ysatoshi@capsule-corp.example`
 
-### Auth results (as the gateway reported them)
+### Auth results
 
 ```
 Authentication-Results: mx.capsule-corp.example;
@@ -35,46 +34,39 @@ Authentication-Results: mx.capsule-corp.example;
   dmarc=fail (p=quarantine) header.from=capsu1e-corp.example
 ```
 
-### Header excerpt (relevant lines only)
+### Header lines I actually used
 
 ```
 From: Capsule Corp IT <it-help@capsu1e-corp.example>
 Reply-To: it-help@capsu1e-corp.example
 Return-Path: <bounce@mailer-prod.example>
 Received: from unknown (helo=mailer-prod.example)
-Message-ID: <reset-88411@mailer-prod.example>
 ```
 
-## Indicators
+## What I pulled out
 
 | Type | Value | Notes |
 |------|-------|-------|
-| sender | `it-help@capsu1e-corp.example` | digit `1` in place of `l` |
-| domain | `capsu1e-corp.example` | lookalike of `capsule-corp.example` |
-| url | `https://mail.capsu1e-corp.example/reset` | recorded as text, not visited |
-| ask | password reset / "mailbox will lock" | urgency + credential harvest |
+| sender | `it-help@capsu1e-corp.example` | digit 1 instead of L |
+| domain | `capsu1e-corp.example` | not `capsule-corp.example` |
+| url | `https://mail.capsu1e-corp.example/reset` | wrote it down, did not open it |
+| ask | reset your password now or you lock out | fake login page |
 
-## Analysis
+## What I think it is
 
-The display name is our IT desk. The domain is not. `capsu1e-corp.example` vs `capsule-corp.example` is a single-character swap that is easy to miss on a phone. Auth results do not support the claimed brand: SPF fail, DKIM fail, DMARC fail, and the envelope from is `mailer-prod.example`.
+It looks like our IT desk. It is not. One character in the domain is wrong, which is easy to miss on a phone. SPF, DKIM, and DMARC all fail. The envelope is `mailer-prod.example`, not Capsule.
 
-This is commodity credential phishing, not BEC. There is no payment ask and no executive sender. The lure is a fake password-reset page.
+This is a fake reset page. Not BEC. Nobody asked for money. User said they did not click, so I did not reset their password. I still blocked the domain in case the same mail hit someone else.
 
-User reported they did not click. Residual risk is low for this mailbox. Residual risk for anyone who did click a sibling message is not known, so the domain still gets blocked org-wide.
+## What I did
 
-## Actions
+- [x] Block `it-help@capsu1e-corp.example` and `capsu1e-corp.example`
+- [x] Request block for `mail.capsu1e-corp.example`
+- [x] Search last 24h for the same subject / domain (none in this lab)
+- [ ] Password reset (not needed)
+- [ ] Finance (not a money email)
+- [x] Told the user: fake reset page, real IT will not send a 30 minute lockout from a lookalike domain
 
-- [x] Block sender `it-help@capsu1e-corp.example` and domain `capsu1e-corp.example` on the mail gateway
-- [x] Request DNS/proxy block for `mail.capsu1e-corp.example`
-- [x] Search the last 24h for other recipients of the same subject / sending domain (none found in this lab)
-- [ ] Password reset / session revoke (not needed: user did not click)
-- [ ] Finance notified (not a payment case)
-- [x] User told it was a fake reset page and that Capsule IT will not send lockout ultimatums from a lookalike domain
-- [x] Escalated to: n/a (contained, no credential use)
+## If I had 20 seconds with a lead
 
-## What I would tell the shift lead
-
-```
-True positive lookalike reset page from capsu1e-corp.example. User did not click.
-Sender and hostname blocked. No sibling hits in the last day. No reset needed.
-```
+True positive lookalike from capsu1e-corp.example. User did not click. Sender and host blocked. No other hits today.
