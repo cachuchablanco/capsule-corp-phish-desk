@@ -67,7 +67,7 @@ I used to work in financial services. This is the email that actually empties an
 Two tells that are not even technical:
 
 1. Real Vegeta would not politely email AP. He would be in the building.
-2. Anyone who actually had Vegeta's approval does not need to write "do not question it" in the same paragraph as a new routing number.
+2. Anyone who actually had Vegeta's approval does not need to write "do not question it" in the same paragraph as a new routing number. Also they would not CC Kakarot for "positive energy." There is no CC. I checked.
 
 Our file says West City Parts is `ar@westcityparts.example` and has a phone number. I used that number. They did not send this. Their bank did not change. Vegeta did not sign off, which I know because I asked Briefs, not because I asked the email.
 
