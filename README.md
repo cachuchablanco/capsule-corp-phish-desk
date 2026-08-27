@@ -2,13 +2,13 @@
 
 I want a junior SOC job. A lot of that job is email. So I wrote a 30 minute playbook and closed three fake Capsule Corp tickets the way I would if they landed on my queue.
 
-Capsule Corp is Dragon Ball. I am a Vegeta guy, not a Kakarot guy, so the prince and Trunks show up in here. The tickets are still headers, lookalike domains, BEC, and a fake HR link. Fictional company. Real process. Occasional jokes. If the joke and the verdict ever fight, the verdict wins.
+Capsule Corp is Dragon Ball. I am a Vegeta guy. The prince, Trunks, and Kakarot all work here (his name is Kakarot, I am not calling him the other thing). The tickets are still headers, lookalike domains, BEC, and a fake HR link. Fictional company. Real process. Occasional jokes. If the joke and the verdict ever fight, the verdict wins.
 
 **Oscar Hernandez** · [GitHub](https://github.com/cachuchablanco) · [LinkedIn](https://www.linkedin.com/in/oscar-hernandez-34355210a)
 
 ## Why I built this
 
-I came from financial services. I have watched people get rushed into sending money because an email sounded urgent. Ticket 002 is that problem, except the name they dropped is Vegeta. 001 and 003 are fake login pages. 003 is Trunks, intern, phone, bad idea.
+I came from financial services. I have watched people get rushed into sending money because an email sounded urgent. Ticket 002 is that problem, except the name they dropped is Vegeta. 001 is Kakarot vs a lookalike reset (he forwarded it instead of clicking, which is growth). 003 is Trunks, intern, phone, bad idea.
 
 This is not a mail filter. It is me showing I can take a reported message, decide what it is, and write it down.
 
@@ -16,7 +16,7 @@ This is not a mail filter. It is me showing I can take a reported message, decid
 
 | ID | What it is | Verdict | ATT&CK | Writeup |
 |----|------------|---------|--------|---------|
-| 001 | Lookalike password reset | True positive | T1566.002 | [tickets/001-lookalike-domain.md](tickets/001-lookalike-domain.md) |
+| 001 | Kakarot vs lookalike password reset | True positive | T1566.002 | [tickets/001-lookalike-domain.md](tickets/001-lookalike-domain.md) |
 | 002 | "Vegeta signed off" wire-change (BEC) | True positive | T1566 | [tickets/002-invoice-bec.md](tickets/002-invoice-bec.md) |
 | 003 | Trunks vs fake HR benefits | True positive | T1566.002 | [tickets/003-fake-hr-link.md](tickets/003-fake-hr-link.md) |
 
