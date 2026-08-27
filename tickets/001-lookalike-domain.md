@@ -1,18 +1,19 @@
-# PHISH-001 · Lookalike password reset
+# PHISH-001 · Lookalike password reset (it's a 1, not an L)
 
 **Analyst:** Oscar Hernandez  
 **Opened:** 2026-08-12 09:14 PT  
 **Closed:** 2026-08-12 09:41 PT  
 **Verdict:** True positive  
-**ATT&CK:** [T1566.002 Spearphishing Link](https://attack.mitre.org/techniques/T1566/002/)
+**ATT&CK:** [T1566.002 Spearphishing Link](https://attack.mitre.org/techniques/T1566/002/)  
+**Scouter:** Power level of this domain: 2. It is a digit.
 
 ## Two sentences for whoever is on lead
 
-Staff got a "reset your Capsule mail or it locks in 30 minutes" email from `capsu1e-corp.example`. That is a fake Capsule domain (the letter l is a 1). User did not click. I blocked the sender and the host.
+Staff got a "reset your Capsule mail or it locks in 30 minutes" email from `capsu1e-corp.example`. That is a fake Capsule domain (the letter L is a 1). User did not click. I blocked the sender and the host.
 
 ## Reporter
 
-- Name / role: Y. Satoshi, warehouse admin
+- Name / role: Y. Satoshi, warehouse admin (not Vegeta, Vegeta does not file tickets, he yells)
 - When they reported it: 2026-08-12 09:14 PT
 - What they did: did not click, did not type a password
 
@@ -47,7 +48,7 @@ Received: from unknown (helo=mailer-prod.example)
 
 | Type | Value | Notes |
 |------|-------|-------|
-| sender | `it-help@capsu1e-corp.example` | digit 1 instead of L |
+| sender | `it-help@capsu1e-corp.example` | digit 1 instead of L. Pride would never. |
 | domain | `capsu1e-corp.example` | not `capsule-corp.example` |
 | url | `https://mail.capsu1e-corp.example/reset` | wrote it down, did not open it |
 | ask | reset your password now or you lock out | fake login page |
@@ -56,11 +57,13 @@ Received: from unknown (helo=mailer-prod.example)
 
 It looks like our IT desk. It is not. One character in the domain is wrong, which is easy to miss on a phone. SPF, DKIM, and DMARC all fail. The envelope is `mailer-prod.example`, not Capsule.
 
+Real Capsule IT does not misspell Capsule. Real Vegeta does not send "please reset or we lock you out in 30 minutes." That is the whole personality test and it failed.
+
 This is a fake reset page. Not BEC. Nobody asked for money. User said they did not click, so I did not reset their password. I still blocked the domain in case the same mail hit someone else.
 
 ## What I did
 
-- [x] Block `it-help@capsu1e-corp.example` and `capsu1e-corp.example`
+- [x] Block `it-help@capsu1e-corp.example` and `capsu1e-corp.example` (Final Flash the domain)
 - [x] Request block for `mail.capsu1e-corp.example`
 - [x] Search last 24h for the same subject / domain (none in this lab)
 - [ ] Password reset (not needed)
@@ -69,4 +72,4 @@ This is a fake reset page. Not BEC. Nobody asked for money. User said they did n
 
 ## If I had 20 seconds with a lead
 
-True positive lookalike from capsu1e-corp.example. User did not click. Sender and host blocked. No other hits today.
+True positive lookalike from capsu1e-corp.example. User did not click. Sender and host blocked. No other hits today. It's a 1. It is not over 9000.
