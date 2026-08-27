@@ -1,13 +1,12 @@
 # PHISH-___ · <short title>
 
-**Queue:** Capsule Corp IT  
-**Analyst:**  
+**Analyst:** Oscar Hernandez  
 **Opened:**  
 **Closed:**  
 **Verdict:** true positive / suspicious / false positive  
 **ATT&CK:**  
 
-## Lead summary (two sentences)
+## Two sentences for whoever is on lead
 
 1.
 2.
@@ -15,19 +14,18 @@
 ## Reporter
 
 - Name / role:
-- Reported at:
-- User action: did not click / clicked / typed credentials / replied / paid or attempted to pay
+- When they reported it:
+- What they did: did not click / clicked / typed a password / replied / paid or tried to pay
 
 ## Message
 
 - Subject:
-- Visible From:
+- From:
 - Return-Path:
 - Reply-To:
-- Date (header):
-- Recipients:
+- Date:
 
-### Auth results (as the gateway reported them)
+### Auth results
 
 ```
 spf=
@@ -35,36 +33,29 @@ dkim=
 dmarc=
 ```
 
-### Header excerpt (relevant lines only)
+### Header lines I actually used
 
 ```
 ```
 
-## Indicators
+## What I pulled out
 
 | Type | Value | Notes |
 |------|-------|-------|
 | sender |  |  |
 | domain |  | lookalike? |
-| url |  | recorded as text, not visited |
+| url |  | text only, I did not visit it |
 | ask |  |  |
 
-## Analysis
+## What I think it is
 
-- What it claims to be:
-- What it actually is:
-- Why this verdict:
-
-## Actions
+## What I did
 
 - [ ] Block sender / domain
-- [ ] Block hostname (if any)
-- [ ] Password reset / session revoke (if creds)
-- [ ] Finance notified out-of-band (if BEC / payment)
-- [ ] User given a plain-language outcome
-- [ ] Escalated to: n/a
+- [ ] Block hostname
+- [ ] Password reset / sessions (if they typed anything)
+- [ ] Called finance on a known number (if money)
+- [ ] Told the user in plain language
+- [ ] Escalated to:
 
-## What I would tell the shift lead
-
-```
-```
+## If I had 20 seconds with a lead
