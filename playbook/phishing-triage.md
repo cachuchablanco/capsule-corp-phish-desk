@@ -1,19 +1,19 @@
 # Phishing triage — 30 minutes
 
-This is for mail someone already reported. It is not a guide for sending phish.
+Not three days in the Hyperbolic Time Chamber. Thirty minutes, then a verdict.
 
-I time-box it to 30 minutes so I do not live in headers all day.
+This is for mail someone already reported. It is not a guide for sending phish.
 
 ## First: did they already get hurt?
 
 If they typed a password, replied with data, or sent money, contain that first. Analysis can wait five minutes. The damage cannot.
 
 - Password typed → reset it, kill sessions, tell them to ignore MFA they did not start
-- Money or bank change → call finance on a number you already have. Not a number in the email.
+- Money or bank change → call finance on a number you already have. Not a number in the email. "Vegeta approved it" is not approval.
 
 ## Then read the headers, not the story
 
-The body is a story. The headers are who actually sent it.
+The body is a story. The headers are who actually sent it. A Saiyan prince does not need a lookalike domain. A scammer does.
 
 I always look at:
 
@@ -29,15 +29,15 @@ How I read auth without making it a research paper:
 - DMARC fail = the visible From does not line up with SPF/DKIM. If it claims to be us and DMARC fails, I treat it as fake until I have a reason not to
 - DMARC pass does not mean safe. A lookalike domain can pass for itself. A real mailbox can get stolen.
 
-Do not click the link on your own computer. Write it down. If you need to check a URL, use a sandbox.
+Do not click the link on your own computer. Write it down. If you need to check a URL, use a sandbox. I am not training my scouter by visiting the fake planet.
 
 ## What kind of email is this?
 
 I pick one bucket so I do not mix up the response:
 
-1. **Lookalike domain** — `capsu1e-corp` instead of `capsule-corp`. Usually a fake login.
-2. **BEC / invoice / wire change** — sometimes no malware and no link. The ask is money or a new bank account.
-3. **Fake internal page** — HR, payroll, VPN, password reset.
+1. **Lookalike domain** — `capsu1e-corp` instead of `capsule-corp`. Usually a fake login. Pride would never misspell the company.
+2. **BEC / invoice / wire change** — sometimes no malware and no link. The ask is money or a new bank account. Bonus points if they name-drop Vegeta so nobody questions it.
+3. **Fake internal page** — HR, payroll, VPN, password reset. Interns (Trunks) tap these on a phone.
 4. **Not phish** — real vendor, user got nervous. Close it and say why.
 
 ## Verdict
@@ -46,13 +46,13 @@ I pick one bucket so I do not mix up the response:
 - **Suspicious** — I need a lead or more mail to compare.
 - **False positive** — real sender. Write why so the next person does not reopen it.
 
-One sentence a lead can quote. Then the evidence.
+One sentence a lead can quote. Then the evidence. Joke after that if you want. Joke is not the verdict.
 
 ## What I actually request
 
 I am junior. I do not "own the gateway." I request:
 
-- Block the sender and the sending domain
+- Block the sender and the sending domain (Final Flash the domain, in the ticket)
 - Block the fake hostname if there is one
 - Password reset if they typed anything
 - Finance freeze if money is in play
@@ -64,4 +64,4 @@ Escalate if credentials went in, money moved or is pending, an executive mailbox
 
 Close when the verdict is clear, the blocks are in, the user got a plain answer, and someone else can read the ticket without me.
 
-Write it on [templates/ticket.md](../templates/ticket.md). Two sentences at the top. Evidence under that.
+Write it on [templates/ticket.md](../templates/ticket.md). Two sentences at the top. Evidence under that. Scouter line is optional and one line.
