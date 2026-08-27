@@ -66,7 +66,7 @@ If he did not click: block the host, tell HR this was not them, search for copie
 
 If he clicked or might have: treat it as a password problem even if he "doesn't think" he typed one. Phones make that memory bad. Interns make it worse. Reset, kill sessions, watch for MFA spam.
 
-I took the second path. I would rather reset Trunks than explain to Vegeta why his kid's mailbox is in someone else's hands.
+I took the second path. I would rather reset Trunks than explain to Vegeta why his kid's mailbox is in someone else's hands. Kakarot offered to "sense" whether the link was evil. I used DMARC instead.
 
 Still not BEC. The ask is a login, not a wire. 001 and 003 are the intern-queue fakes. 002 is the finance queue with the prince's name on it. Same ticket shape, different call.
 
@@ -75,7 +75,7 @@ Still not BEC. The ask is a login, not a wire. 001 and 003 are the intern-queue 
 - [x] Block `benefits@hr-capsule.example`, `notify-center.example`, `hr-capsule.example`
 - [x] Forced password reset for `trunks.briefs@capsule-corp.example` and revoked sessions
 - [x] Told him to report any MFA he did not start (including "but it said Super Saiyan login")
-- [x] Search last 48h for that subject (two other people; one unopened, one did not click; both notified)
+- [x] Search last 48h for that subject (two other people including Kakarot; one unopened, Kakarot did not click this time; both notified)
 - [x] Told real HR this was not their mail
 - [x] Told Trunks in plain language: fake enrollment page, password changed, real HR is `hr.capsule-corp.example` only, do not time-travel this
 
