@@ -6,7 +6,7 @@ This is for mail someone already reported. It is not a guide for sending phish.
 
 ## First: did they already get hurt?
 
-If they typed a password, replied with data, or sent money, contain that first. Analysis can wait five minutes. The damage cannot.
+If they typed a password, replied with data, or sent money, contain that first. Analysis can wait five minutes. The damage cannot. If the reporter is Kakarot, still check. He is nice. The headers are not.
 
 - Password typed → reset it, kill sessions, tell them to ignore MFA they did not start
 - Money or bank change → call finance on a number you already have. Not a number in the email. "Vegeta approved it" is not approval.
@@ -37,7 +37,7 @@ I pick one bucket so I do not mix up the response:
 
 1. **Lookalike domain** — `capsu1e-corp` instead of `capsule-corp`. Usually a fake login. Pride would never misspell the company.
 2. **BEC / invoice / wire change** — sometimes no malware and no link. The ask is money or a new bank account. Bonus points if they name-drop Vegeta so nobody questions it.
-3. **Fake internal page** — HR, payroll, VPN, password reset. Interns (Trunks) tap these on a phone.
+3. **Fake internal page** — HR, payroll, VPN, password reset. Interns (Trunks) tap these on a phone. Kakarot forwards them, usually after hovering the wrong thing.
 4. **Not phish** — real vendor, user got nervous. Close it and say why.
 
 ## Verdict
