@@ -5,6 +5,7 @@
 **Closed:**  
 **Verdict:** true positive / suspicious / false positive  
 **ATT&CK:**  
+**Scouter (one line, optional):**  
 
 ## Two sentences for whoever is on lead
 
