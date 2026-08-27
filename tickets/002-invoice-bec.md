@@ -1,33 +1,32 @@
-# PHISH-002 · Vendor wire-change / invoice BEC
+# PHISH-002 · Vendor wire-change (BEC)
 
-**Queue:** Capsule Corp IT  
-**Analyst:** cachuchablanco  
+**Analyst:** Oscar Hernandez  
 **Opened:** 2026-08-19 14:03 PT  
 **Closed:** 2026-08-19 14:31 PT  
 **Verdict:** True positive (BEC)  
-**ATT&CK:** [T1566 Phishing](https://attack.mitre.org/techniques/T1566/) (spearphishing with a business ask; no malware required)
+**ATT&CK:** [T1566 Phishing](https://attack.mitre.org/techniques/T1566/) — business email compromise, no malware required
 
-## Lead summary (two sentences)
+## Two sentences for whoever is on lead
 
-Finance got a "updated bank details for West City Parts" invoice from an address that only looked like the vendor. This is BEC, not a drive-by link. Payment was not sent. Finance was called on the known vendor number. Sender blocked.
+AP got a "West City Parts changed banks, wire PO 8842 today" email. That is BEC, not a virus. Nobody paid. I called the vendor on the number already in the file, not the number in the email.
 
 ## Reporter
 
 - Name / role: A. Brief, accounts payable
-- Reported at: 2026-08-19 14:03 PT after the amount felt off
-- User action: opened the mail, did **not** click, did **not** pay, did not reply
+- When they reported it: 2026-08-19 14:03 PT (the amount felt off)
+- What they did: opened it, did not click, did not pay, did not reply
 
 ## Message
 
 - Subject: `URGENT: West City Parts — updated remittance / PO 8842`
-- Visible From: `West City Parts Billing <billing@west-city-parts.example>`
+- From: `West City Parts Billing <billing@west-city-parts.example>`
 - Return-Path: `noreply@quick-invoice-mail.example`
 - Reply-To: `accounts@westcity-parts-billing.example`
-- Date (header): 19 Aug 2026 20:41:08 +0000
-- Recipients: `ap@capsule-corp.example`
-- Mentioned authority: "Bulma signed off, process today before close"
+- Date: 19 Aug 2026 20:41:08 +0000
+- To: `ap@capsule-corp.example`
+- Name-drop in the body: "Bulma signed off, process today before close"
 
-### Auth results (as the gateway reported them)
+### Auth results
 
 ```
 Authentication-Results: mx.capsule-corp.example;
@@ -36,7 +35,9 @@ Authentication-Results: mx.capsule-corp.example;
   dmarc=fail (p=none) header.from=west-city-parts.example
 ```
 
-### Header excerpt (relevant lines only)
+This one matters. SPF and DKIM **pass** for the bulk-mail host. That is why "it authenticated" is the wrong stop. DMARC **fails** because that pass is not aligned with the vendor domain they are pretending to be.
+
+### Header lines I actually used
 
 ```
 From: West City Parts Billing <billing@west-city-parts.example>
@@ -44,43 +45,38 @@ Reply-To: accounts@westcity-parts-billing.example
 Return-Path: <noreply@quick-invoice-mail.example>
 ```
 
-Body ask (paraphrased): "Our bank changed this morning. Do not use the account on file. Wire to the details below for PO 8842 so we can ship the gravity-training parts." No attachment in this case. A short URL was listed as "optional invoice PDF" and was **not** visited.
+Ask in the body (paraphrased): bank changed this morning, do not use the account on file, wire the new details so the parts ship. Optional PDF link. I did not open the link.
 
-## Indicators
+## What I pulled out
 
 | Type | Value | Notes |
 |------|-------|-------|
-| sender | `billing@west-city-parts.example` | claimed vendor; not our recorded vendor domain |
-| reply-to | `accounts@westcity-parts-billing.example` | hyphenation change; replies would leave the claimed domain |
-| envelope | `quick-invoice-mail.example` | bulk-mail host, not the vendor |
-| url | `https://files.quick-invoice-mail.example/po-8842` | recorded as text, not visited |
-| ask | change remittance / wire today | classic BEC payment diversion |
+| sender | `billing@west-city-parts.example` | not the vendor domain we have on file |
+| reply-to | `accounts@westcity-parts-billing.example` | extra hyphen. replies leave the claimed domain |
+| envelope | `quick-invoice-mail.example` | bulk mail, not the vendor |
+| url | `https://files.quick-invoice-mail.example/po-8842` | text only |
+| ask | new bank account, pay today | this is the whole attack |
 
-## Analysis
+## What I think it is
 
-This is a different problem than PHISH-001.
+Different problem than 001.
 
-Auth is mixed on purpose: SPF and DKIM **pass** for the bulk-mail host, which is why a "green padlock" or "it authenticated" instinct is the wrong stop. DMARC **fails** because those passes do not align with `west-city-parts.example`. The visible From is a vendor costume. Reply-To is a second costume.
+I used to work in financial services. This is the email that actually empties an account. No malware. No fake login. Just urgency, a boss's name, and "use the new bank." If AP trusts the body, the money is gone.
 
-There is no need for malware. The loss happens if AP trusts the body and changes a bank account. Urgency, a named executive, and "use the new account" are the tells.
+Our file says West City Parts is `ar@westcityparts.example` and has a phone number. I used that number. They did not send this. Their bank did not change.
 
-Capsule Corp's recorded vendor contact for West City Parts is `ar@westcityparts.example` (lab value) and a phone number in the vendor master file. That number was used. The vendor said they did not send this and their bank did not change.
+Reporter did not pay. Nothing to claw back. The job left is stop the next person in AP from paying a copy of this.
 
-User did not pay. No funds to recover. The remaining job is to stop the next AP clerk from paying a sibling mail.
+## What I did
 
-## Actions
+- [x] Block `billing@west-city-parts.example`, `accounts@westcity-parts-billing.example`, `quick-invoice-mail.example`
+- [x] Search AP for "updated remittance" / PO 8842 / same Reply-To (one unopened sibling, quarantined, nobody paid)
+- [x] Called finance / vendor **out of band** on the known number
+- [x] Confirmed PO 8842 was not paid today
+- [x] Told AP: bank changes go through the vendor file, not through email
+- [ ] Password reset (they did not type a password)
+- [x] Flagged to the finance lead (awareness, no loss)
 
-- [x] Block `billing@west-city-parts.example`, `accounts@westcity-parts-billing.example`, and `quick-invoice-mail.example` on the mail gateway
-- [x] Search AP inboxes for "updated remittance" / PO 8842 / same Reply-To (none paid; one sibling unopened, quarantined)
-- [x] Finance notified **out-of-band** on the known vendor number (not a number in the email)
-- [x] Confirmed no payment was released on PO 8842 today
-- [x] Asked AP to ignore bank-change requests that do not go through the vendor-master process
-- [ ] Password reset (not a credential case)
-- [x] Escalated to: finance controller (awareness only, no loss)
+## If I had 20 seconds with a lead
 
-## What I would tell the shift lead
-
-```
-True positive BEC against AP: fake West City Parts bank-change, DMARC fail, Reply-To mismatch.
-No payment sent. Vendor confirmed out-of-band. Sender domains blocked. One unopened sibling quarantined.
-```
+True positive BEC on AP. Fake bank change, DMARC fail, Reply-To mismatch. No payment. Vendor confirmed by phone. Domains blocked. One extra copy quarantined.
